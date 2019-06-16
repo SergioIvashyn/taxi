@@ -1,0 +1,47 @@
+{% extends 'taxi/base_blog.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+ 
+  <h1>Обслуживание клиентов такси</h1>
+
+  <p>
+    Обслуживание клиентов такси - это
+     многопользовательская система офрормления заявок к таксистам,написаная на Django.
+
+  
+  <div class="card mt-4">
+      <div class="card-header">
+          <h5>
+           User logins
+          </h5>
+      </div>
+      <div class="card-body">
+
+        <ul>
+          <li>
+            Чтобы войти как клиент - <code>user1</code> или <code>user2</code>
+          </li>
+        <li>
+          Чтобы войти как драйвер - <code>user3</code> или <code>user4</code>
+        </li>
+          <li>
+             Чтобы войти как админ - <code>admin</code>
+          </li>
+          <li>
+              <b>Пароль для всех демо пользователей - <code>admin</code></b>
+          </li>
+        </ul>
+        <p>
+          {% if user.is_authenticated %}
+            Вы уже вошли в систему.
+          {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+{% endblock %}

@@ -38,3 +38,24 @@ def register(request):
 
 def profile(request):
     return render(request, 'taxi/profile.html')
+
+
+def sign_in(request):
+    if request.method == 'GET':
+        return render(request, 'taxi/user_sign_in_form.html')
+    else:
+        phone = request.POST.get('username', False)
+        password = request.POST.get('password', False)
+        try:
+            username = MyUser.objects.get(phonenumber=phone)
+        except Exception as e:
+            return render(request, 'taxi/user_sign_in_form.html')
+        
+        username = MyUser.objects.get(phonenumber=phone)
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('profile')
+        else:
+            return render(request, 'taxi/user_sign_in_form.html')

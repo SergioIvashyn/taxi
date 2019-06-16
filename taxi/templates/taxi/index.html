@@ -38,7 +38,7 @@
           {% if user.is_authenticated %}
             Вы уже вошли в систему.
           {% else %}
-            <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+            <a href="{% url 'sign_in' %}" class="btn btn-primary">Войти</a>
           {% endif %}
         </p>
       </div>

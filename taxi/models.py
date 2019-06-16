@@ -11,7 +11,7 @@ from django.utils.text import slugify
 from time import time
 from django.db import connection
 from django.db.models import F
-
+from django.contrib.auth import authenticate, login, logout
 # Create your models here.
 def gen_slug(s):
 	new_slug = slugify(s, allow_unicode=True)
@@ -30,6 +30,22 @@ class State(models.Model):
 	def __str__(self):
 		return self.title
 
+class MyUser(models.Model):
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	phonenumber = PhoneNumberField(unique=True)
+
+	def get_absolute_url(self):
+		return reverse('myuser_detail_url',kwargs={'slug': self.slug})
+
+	def get_update_url(self):
+		return reverse('myuser_update_url', kwargs={'slug':self.slug})
+
+	def get_delete_url(self):
+		return reverse('myuser_delete_url', kwargs={'slug':self.slug})
+
+	def __str__(self):
+		return self.user.username
+
 class Car(models.Model):
 	mark = models.CharField(max_length=150)
 	state = models.ForeignKey(State,on_delete=models.CASCADE)
@@ -39,14 +55,13 @@ class Car(models.Model):
 		return self.mark
 
 class Driver(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
-	phonenumber = PhoneNumberField(unique=True)
+	user = models.OneToOneField(MyUser,on_delete=models.CASCADE)
 	car = models.OneToOneField(Car,on_delete=models.CASCADE)
 	slug = models.SlugField(max_length=50,unique=True, blank=True)
 
 	def save(self, *args, **kwargs):
 		if not self.id:
-			self.slug = gen_slug(self.user.username)
+			self.slug = gen_slug(self.user.user.username)
 		super().save(*args, **kwargs)
 
 
@@ -60,18 +75,17 @@ class Driver(models.Model):
 		return reverse('driver_delete_url', kwargs={'slug':self.slug})
 
 	def __str__(self):
-		return self.user.username
+		return self.user.user.username
 
 
 
 class Client(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
-	phonenumber = PhoneNumberField(unique=True)
+	user = models.OneToOneField(MyUser,on_delete=models.CASCADE)
 	slug = models.SlugField(max_length=50,unique=True, blank=True)
 
 	def save(self, *args, **kwargs):
 		if not self.id:
-			self.slug = gen_slug(self.user.username)
+			self.slug = gen_slug(self.user.user.username)
 		super().save(*args, **kwargs)
 
 	def get_absolute_url(self):
@@ -84,7 +98,7 @@ class Client(models.Model):
 		return reverse('client_delete_url', kwargs={'slug':self.slug})
 
 	def __str__(self):
-		return self.user.username
+		return self.user.user.username
 
 class Status(models.Model):
 	title = models.CharField(max_length=150,unique=True)
@@ -119,13 +133,12 @@ class Order(models.Model):
 
 
 class Operator(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
-	phonenumber = PhoneNumberField(unique=True)
+	user = models.OneToOneField(MyUser,on_delete=models.CASCADE)
 	slug = models.SlugField(max_length=50,unique=True, blank=True)
 
 	def save(self, *args, **kwargs):
 		if not self.id:
-			self.slug = gen_slug(self.user.username)
+			self.slug = gen_slug(self.user.user.username)
 		super().save(*args, **kwargs)
 
 	def get_absolute_url(self):
@@ -138,4 +151,4 @@ class Operator(models.Model):
 		return reverse('operator_delete_url', kwargs={'slug':self.slug})
 
 	def __str__(self):
-		return self.user.username
+		return self.user.user.username

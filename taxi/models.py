@@ -107,11 +107,12 @@ class Status(models.Model):
 		return self.title
 
 class Order(models.Model):
-	client = models.OneToOneField(Client,on_delete=models.CASCADE)
+	client = models.OneToOneField(Client,on_delete=models.CASCADE,null=True,blank=True)
 	driver = models.OneToOneField(Driver,on_delete=models.CASCADE,null=True,blank=True)
 	place_from = models.CharField(max_length=150)
-	status = models.ForeignKey(Status,on_delete=models.CASCADE)
+	status = models.ForeignKey(Status,on_delete=models.CASCADE,null=True,blank=True,default=1)
 	place_to = models.CharField(max_length=150)
+	slug = models.SlugField(max_length=50,unique=True, blank=True)
 
 	def save(self, *args, **kwargs):
 		if not self.id:

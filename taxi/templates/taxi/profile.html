@@ -7,7 +7,23 @@
         <div class="media-body">
           <h2 class="account-heading">{{ user.username }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
-          
+          {% if request.user.myuser.client %}
+            {% for i in order %}
+              <p>Откуда ехать:{{ i.place_from }}  </p>
+              <p>Куда:{{ i.place_from }}</p>
+              <p>Статус:{{i.status}}</p>
+              <p><a href="{{ i.get_delete_url }}">Удалить заказ</a></p>
+            {% endfor %}
+          {% endif %}
+    {% if request.user.myuser.driver %}
+            {% for i in order %}
+              <p>Откуда ехать:{{ i.place_from }}  </p>
+              <p>Куда:{{ i.place_from }}</p>
+              <p>Статус:{{i.status}}</p>
+              <p><a href="{{ i.get_delete_url }}">Удалить заказ</a></p>
+            {% endfor %}
+          {% endif %}
+    
         </div>
       </div>
       <!-- FORM HERE -->

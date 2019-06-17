@@ -1,0 +1,44 @@
+{% extends 'taxi/base_blog.html' %}
+{% load widget_tweaks %}
+{% block title %}
+   Список - {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-9">
+        <h1 class="mb-5">Заказы</h1>
+    <table class="table table-bordered tablesorter">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Откуда</th>
+            <th scope="col">Куда</th>
+            
+            <th scope="col">Действия</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for point in order %}
+        <tr class="search">
+
+            <td scope="col">{{ point.place_from }} </td>
+            <td scope="col">{{point.place_to}}</td>
+            <td scope="col">
+            <form class="" action="{% url 'order_driver' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-primary" type="submit" name="id" value='{{ point.id }}'>Взять заказ</button></td>
+            </form>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+  </div>
+ 
+</div>
+
+
+{% endblock %}

@@ -22,3 +22,18 @@ from django.db import models
 #         }
 
 
+class OrderForm(forms.ModelForm):
+
+	class Meta:
+		model = Order
+		fields = ['place_from','place_to']
+
+		widgets = {
+			'place_from':forms.TextInput(attrs={'class':'form-control'}),
+			# 'group':forms.Select(attrs={'class':'form-control'}),
+			'place_to':forms.TextInput(attrs={'class':'form-control'}),
+			# 'birth':forms.SelectDateWidget(),
+			# 'description':forms.Textarea(attrs={'class':'form-control'}),
+			#'slug':forms.TextInput(attrs={'class': 'form-control'}),
+		}
+	

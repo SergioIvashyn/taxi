@@ -1,4 +1,4 @@
-{% extends 'hospital/base_blog.html' %}
+{% extends 'taxi/base_blog.html' %}
 
 {% block title %}
   Удалить  - {{ block.super }}
@@ -9,7 +9,7 @@
     {% csrf_token %}
 
     <h3>Вы уверены что вы хотите удалить эти данные?</h3>
-    <a href="{{ obj.get_absolute_url }}">Отмена</a>
+    <a href="{% url 'profile' %}">Отмена</a>
     <button type="submit" class="btn btn-danger">Удалить</button>
   </form>
 

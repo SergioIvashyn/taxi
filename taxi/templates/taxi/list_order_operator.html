@@ -1,0 +1,45 @@
+{% extends 'taxi/base_blog.html' %}
+{% load widget_tweaks %}
+{% block title %}
+   Список - {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-9">
+        <h1 class="mb-5">Заказы <a href="{% url 'order_operator_create_url' %}">Добавить</a></h1> 
+    <table class="table table-bordered tablesorter">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Откуда</th>
+            <th scope="col">Куда</th>
+            <th scope="col">Драйвер</th>
+            <th scope="col">Клиент</th>
+            <th scope="col">Действия</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for point in order %}
+        <tr class="search">
+
+            <td scope="col">{{ point.place_from }} </td>
+            <td scope="col">{{point.place_to}}</td>
+            <td scope="col">{{point.driver.user.user.last_name}} {{point.driver.user.user.first_name}}</td>
+            <td scope="col">{{point.client.user.user.last_name}} {{point.client.user.user.first_name}}</td>
+
+            <td scope="col"><a href="{{ point.get_delete_url }}">Удалить</a></td>
+            
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+  </div>
+ 
+</div>
+
+
+{% endblock %}

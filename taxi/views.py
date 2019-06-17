@@ -76,6 +76,28 @@ def order_list(request):
     order = Order.objects.filter(driver__isnull=True)
     return render(request,'taxi/list_order.html',context={'order':order})
 
+def order_operator_list(request):
+    order = Order.objects.all()
+    return render(request,'taxi/list_order_operator.html',context={'order':order})
+
+
+class OrderCreateOpertor(LoginRequiredMixin,ObjectCreateMixin, View):
+    model_form = OrderFormOperator
+    model = Order
+    template = 'taxi/create_order_operator.html'
+    raise_exception = True
+
+    def get(self,request):
+        form = self.model_form()
+        return render(request, self.template,context={'form':form})
+
+    def post(self,request):
+        bound_form = self.model_form(request.POST or None,request.FILES or None)
+        if bound_form.is_valid():
+            new_obj = bound_form.save()
+            return redirect('order_operator_list')
+        return render(request,self.template,context={'form':bound_form})
+
 
 
 
@@ -103,6 +125,25 @@ class OrderCreate(LoginRequiredMixin,ObjectCreateMixin, View):
         return render(request,self.template,context={'form':bound_form})
 
 
+class OrderUpdate(LoginRequiredMixin,ObjectUpdateMixin,View):
+    model = Order
+    model_form = OrderFormDriver
+    template = 'taxi/update.html'
+    raise_exception = True
+    def get(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        bound_form = self.model_form(instance=obj)
+        return render(request,self.template,context={'form':bound_form,'obj':obj})
+
+    def post(self,request,slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        bound_form = self.model_form(request.POST or None,request.FILES or None,instance=obj)
+
+        if bound_form.is_valid():
+            new_obj = bound_form.save()
+            return redirect('profile')
+        return render(request,self.template,context={'form':bound_form,'obj':obj})
+
 
 class OrderDelete(LoginRequiredMixin,ObjectDeleteMixin,View):
     model = Order
@@ -117,3 +158,47 @@ def order_driver(request):
     order.status_id=2
     order.save()
     return redirect('profile')
+
+
+#CRUD driver
+
+class DriverUpdate(LoginRequiredMixin,ObjectUpdateMixin,View):
+    model = Driver
+    model_form = DriverForm
+    template = 'taxi/update.html'
+    raise_exception = True
+
+    def get(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        bound_form = self.model_form(instance=obj)
+        return render(request,self.template,context={'form':bound_form,'obj':obj})
+
+    def post(self,request,slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        bound_form = self.model_form(request.POST or None,request.FILES or None,instance=obj)
+
+        if bound_form.is_valid():
+            new_obj = bound_form.save()
+            return redirect('profile')
+        return render(request,self.template,context={'form':bound_form,'obj':obj})
+
+
+class OrderUpdateOperator(LoginRequiredMixin,ObjectUpdateMixin,View):
+    model = Order
+    model_form = OrderFormDriver
+    template = 'taxi/update.html'
+    raise_exception = True
+    def get(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        bound_form = self.model_form(instance=obj)
+        return render(request,self.template,context={'form':bound_form,'obj':obj})
+
+    def post(self,request,slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        bound_form = self.model_form(request.POST or None,request.FILES or None,instance=obj)
+
+        if bound_form.is_valid():
+            new_obj = bound_form.save()
+            return redirect('profile')
+        return render(request,self.template,context={'form':bound_form,'obj':obj})
+

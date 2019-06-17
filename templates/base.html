@@ -37,7 +37,12 @@
       </li>
       
       {% endif %}
-    
+      {% if request.user.myuser.operator %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "order_operator_list" %}">Добавить заказ</a>
+      </li>
+      
+      {% endif %}
      
       
     </ul>

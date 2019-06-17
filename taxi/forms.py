@@ -22,6 +22,22 @@ from django.db import models
 #         }
 
 
+class OrderFormOperator(forms.ModelForm):
+	class Meta:
+		model = Order
+		fields = ['driver','client','place_from','place_to','status']
+
+		widgets = {
+				'place_from':forms.TextInput(attrs={'class':'form-control'}),
+				'driver':forms.Select(attrs={'class':'form-control'}),
+				'client':forms.Select(attrs={'class':'form-control'}),
+				'status':forms.Select(attrs={'class':'form-control'}),
+				'place_to':forms.TextInput(attrs={'class':'form-control'}),
+				# 'birth':forms.SelectDateWidget(),
+				# 'description':forms.Textarea(attrs={'class':'form-control'}),
+				#'slug':forms.TextInput(attrs={'class': 'form-control'}),
+		}	
+
 class OrderForm(forms.ModelForm):
 
 	class Meta:
@@ -37,3 +53,36 @@ class OrderForm(forms.ModelForm):
 			#'slug':forms.TextInput(attrs={'class': 'form-control'}),
 		}
 	
+
+class OrderFormDriver(forms.ModelForm):
+
+	class Meta:
+		model = Order
+		fields = ['status']
+
+		widgets = {
+			# 'place_from':forms.TextInput(attrs={'class':'form-control'}),
+			'status':forms.Select(attrs={'class':'form-control'}),
+			# 'place_to':forms.TextInput(attrs={'class':'form-control'}),
+			# 'birth':forms.SelectDateWidget(),
+			# 'description':forms.Textarea(attrs={'class':'form-control'}),
+			#'slug':forms.TextInput(attrs={'class': 'form-control'}),
+		}
+
+
+
+
+class DriverForm(forms.ModelForm):
+
+	class Meta:
+		model = Driver
+		fields = ['car']
+
+		widgets = {
+			# 'place_from':forms.TextInput(attrs={'class':'form-control'}),
+			'car':forms.Select(attrs={'class':'form-control'}),
+			# 'place_to':forms.TextInput(attrs={'class':'form-control'}),
+			# 'birth':forms.SelectDateWidget(),
+			# 'description':forms.Textarea(attrs={'class':'form-control'}),
+			#'slug':forms.TextInput(attrs={'class': 'form-control'}),
+		}

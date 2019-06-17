@@ -12,14 +12,18 @@
               <p>Откуда ехать:{{ i.place_from }}  </p>
               <p>Куда:{{ i.place_from }}</p>
               <p>Статус:{{i.status}}</p>
+              {% if i.driver %}
+                 <p>Авто:{{ i.driver.car }}, Цвет:{{ i.driver.colour }}
+              {% endif %}
               <p><a href="{{ i.get_delete_url }}">Удалить заказ</a></p>
             {% endfor %}
           {% endif %}
     {% if request.user.myuser.driver %}
+            <p>Авто:{{ request.user.myuser.driver.car }}, Цвет:{{ request.user.myuser.driver.car.colour }} ,<a href="{{ request.user.myuser.driver.get_update_url }}">Сменить авто</a></p>
             {% for i in order %}
               <p>Откуда ехать:{{ i.place_from }}  </p>
               <p>Куда:{{ i.place_from }}</p>
-              <p>Статус:{{i.status}}</p>
+              <p>Статус:{{i.status}},<a href="{{ i.get_update_url }}">Сменить статус</a></p>
               <p><a href="{{ i.get_delete_url }}">Удалить заказ</a></p>
             {% endfor %}
           {% endif %}

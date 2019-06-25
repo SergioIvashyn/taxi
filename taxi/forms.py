@@ -52,6 +52,10 @@ class OrderForm(forms.ModelForm):
 			# 'description':forms.Textarea(attrs={'class':'form-control'}),
 			#'slug':forms.TextInput(attrs={'class': 'form-control'}),
 		}
+		labels = {
+			'place_from':'Откуда',
+			'place_to':'Куда',
+		}
 	
 
 class OrderFormDriver(forms.ModelForm):

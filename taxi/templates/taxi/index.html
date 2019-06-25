@@ -5,17 +5,17 @@
 
 {% block content %}
  
-  <h1>Обслуживание клиентов такси</h1>
+  <h1>Заказ такси</h1>
 
   <p>
-    Обслуживание клиентов такси - это
-     многопользовательская система офрормления заявок к таксистам,написаная на Django.
+    Заказ такси - это
+     многопользовательская система оформления заявок таксистам,написаная на Django.
 
   
   <div class="card mt-4">
       <div class="card-header">
           <h5>
-           User logins
+           Вход пользователей
           </h5>
       </div>
       <div class="card-body">
@@ -39,7 +39,7 @@
           {% if user.is_authenticated %}
             Вы уже вошли в систему.
           {% else %}
-            <a href="{% url 'sign_in' %}" class="btn btn-primary">Войти</a>
+            <a href="{% url 'sign_in' %}" class="btn btn-outline-info">Войти в учетную запись</a>
           {% endif %}
         </p>
       </div>

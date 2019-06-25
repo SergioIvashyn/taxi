@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title%}
-Sign up - {{ block.super }}
+Войти - {{ block.super }}
 {% endblock %}
 
 
@@ -9,18 +9,18 @@ Sign up - {{ block.super }}
 <form method="post" action=".">
     {% csrf_token %}
     <div class="container mt-5 w-50">
-        <h4>Sing in:</h4>
+        <h4>Войти в аккаунт</h4>
   <div class="form-group">
-    <label for="exampleInputEmail1">Phone</label>
-    <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter phonenumber">
+    <label for="exampleInputEmail1">Телефон</label>
+    <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите номер">
 
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name='password' class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="exampleInputPassword1">Пароль</label>
+    <input type="password" name='password' class="form-control" id="exampleInputPassword1" placeholder="Пароль">
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-outline-info">Вход</button>
     </div>
 </form>
 {% endblock%}

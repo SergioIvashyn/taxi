@@ -6,26 +6,76 @@
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
         <div class="media-body">
           <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">Номер телефона:{{ user.myuser.phonenumber }}</p>
+          <p class="text-secondary">ФИ:{{ user.last_name }} {{ user.first_name }} </p>
           <p class="text-secondary">{{ user.email }}</p>
           {% if request.user.myuser.client %}
+
             {% for i in order %}
-              <p>Откуда ехать:{{ i.place_from }}  </p>
-              <p>Куда:{{ i.place_from }}</p>
-              <p>Статус:{{i.status}}</p>
-              {% if i.driver %}
-                 <p>Авто:{{ i.driver.car }}, Цвет:{{ i.driver.colour }}
+                <table class="table table-bordered tablesorter">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Откуда ехать</th>
+            <th scope="col">Куда</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Авто</th>
+            <th scope="col">Действия</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in order %}
+        <tr class="search">
+            <td scope="col">{{ i.id }}</td>
+            <td scope="col">{{ i.place_from }}</td>
+            <td scope="col">{{i.place_to}}</td>
+            <td scope="col">{{i.status}}</td>
+            <td scope='col'>{% if i.driver %}
+                 <p>{{ i.driver.car }}, Цвет:{{ i.driver.car.colour }}
+                  {% else %}
+                  -
               {% endif %}
-              <p><a href="{{ i.get_delete_url }}">Удалить заказ</a></p>
+
+            </td>
+            <td scope="col"><a href="{{ i.get_delete_url }}">Удалить заказ</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
             {% endfor %}
           {% endif %}
     {% if request.user.myuser.driver %}
-            <p>Авто:{{ request.user.myuser.driver.car }}, Цвет:{{ request.user.myuser.driver.car.colour }} ,<a href="{{ request.user.myuser.driver.get_update_url }}">Сменить авто</a></p>
-            {% for i in order %}
-              <p>Откуда ехать:{{ i.place_from }}  </p>
-              <p>Куда:{{ i.place_from }}</p>
-              <p>Статус:{{i.status}},<a href="{{ i.get_update_url }}">Сменить статус</a></p>
-              <p><a href="{{ i.get_delete_url }}">Удалить заказ</a></p>
-            {% endfor %}
+
+            <p>Авто:{{ request.user.myuser.driver.car }}, Цвет:{{ request.user.myuser.driver.car.colour }} <a href="{{ request.user.myuser.driver.get_update_url }}">Сменить авто</a></p>
+            <h1 class="account-heading">Заказ</h1>
+            <table class="table table-bordered tablesorter">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Откуда ехать</th>
+            <th scope="col">Куда</th>
+            <th class="col">Статус</th>
+            
+            <th scope="col">Действия</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in order %}
+        <tr class="search">
+            <td scope="col">{{ i.id }}</td>
+            <td scope="col">{{ i.place_from }}</td>
+            <td scope="col">{{i.place_to}}</td>
+            <td scope="col">{{i.status}}</td>
+            <td scope="col"><a href="{{ i.get_delete_url }}">Удалить заказ</a>|<a href="{{ i.get_update_url }}">Сменить статус</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+            
           {% endif %}
     
         </div>

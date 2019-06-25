@@ -20,3 +20,7 @@
 a.edit, a.delete {
 	display: none;
 }
+
+*{
+	font-family: Open Sans; 
+}

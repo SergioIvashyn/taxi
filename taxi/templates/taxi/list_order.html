@@ -29,7 +29,7 @@
             <td scope="col">
             <form class="" action="{% url 'order_driver' %}" method="post">
               {% csrf_token %}
-              <button class="btn btn-primary" type="submit" name="id" value='{{ point.id }}'>Взять заказ</button></td>
+              <button class="btn btn-outline-info" type="submit" name="id" value='{{ point.id }}'>Взять заказ</button></td>
             </form>
         </tr>
         {% endfor %}

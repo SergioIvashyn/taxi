@@ -104,7 +104,7 @@ gspread==3.1.0
 gunicorn==19.9.0
 hiredis==1.0.0
 html5lib==1.0.1
-httplib2==0.13.0
+httplib2==0.18.0
 hyperlink==19.0.0
 idna==2.8
 importlib-metadata==0.18
